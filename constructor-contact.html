@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="constructor-dashboard.css">
+    <link rel="stylesheet" href="constructor-pages.css">
+
+    <title>Contact - RoadCare Constructor</title>
+</head>
+<body class="cd-body">
+
+    <header class="cd-header">
+        <div class="cd-logo">Road<span class="highlight">Care</span> <span class="cd-tag">Constructor</span></div>
+
+        <ul class="cd-nav-links">
+            <li><a href="constructor-dashboard.html">Dashboard</a></li>
+            <li><a href="constructor-map.html">Map</a></li>
+            <li><a href="constructor-contact.html" class="active">Contact</a></li>
+        </ul>
+
+        <div class="cd-header-actions">
+
+            <div class="cd-notification-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                <span class="cd-notification-badge"></span>
+            </div>
+
+            <div class="cd-user-menu" id="cdUserMenu">
+                <div class="cd-avatar" id="cdAvatarBtn" role="button" tabindex="0"
+                     aria-haspopup="true" aria-expanded="false" aria-controls="cdAvatarDropdown">
+                    <span id="cdAvatarInitial">C</span>
+                </div>
+
+                <div class="cd-avatar-dropdown" id="cdAvatarDropdown" role="menu" hidden>
+                    <div class="cd-dropdown-header">
+                        <strong id="cdDdName">Constructor</strong>
+                        <small id="cdDdEmail"></small>
+                    </div>
+
+                    <a href="profile.html" role="menuitem">👤 Profile</a>
+                    <a href="settings.html" role="menuitem">⚙️ Settings</a>
+                    <hr>
+                    <button type="button" id="cd-logout-btn" role="menuitem" class="cd-danger">🚪 Sign out</button>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="cd-main">
+
+        <div class="cd-hero">
+            <h1 class="cd-title">Contact Us</h1>
+            <p class="cd-subtitle">Need help with the dashboard, a report, or your account? Reach the RoadCare team here.</p>
+        </div>
+
+        <div class="cp-contact-grid">
+
+            <!-- CONTACT INFO -->
+            <section class="cp-card">
+                <h3>Get in Touch</h3>
+
+                <div class="cp-info-row">
+                    <div class="cp-info-icon">🏢</div>
+                    <div>
+                        <strong>Office</strong>
+                        <span>PCMC Roads Department,<br>Pimpri-Chinchwad, Pune, Maharashtra</span>
+                    </div>
+                </div>
+
+                <div class="cp-info-row">
+                    <div class="cp-info-icon">📱</div>
+                    <div>
+                        <strong>Phone</strong>
+                        <span>+91 00000 00000</span>
+                    </div>
+                </div>
+
+                <div class="cp-info-row">
+                    <div class="cp-info-icon">✉️</div>
+                    <div>
+                        <strong>Email</strong>
+                        <span>support@roadcare.example</span>
+                    </div>
+                </div>
+
+                <div class="cp-info-row">
+                    <div class="cp-info-icon">🕒</div>
+                    <div>
+                        <strong>Working Hours</strong>
+                        <span>Mon - Sat, 9:00 AM - 6:00 PM</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONTACT FORM -->
+            <section class="cp-card">
+                <h3>Send a Message</h3>
+
+                <form class="cp-form" id="cpContactForm">
+
+                    <div class="cp-group">
+                        <label for="cp-name">Name</label>
+                        <input type="text" id="cp-name" readonly>
+                    </div>
+
+                    <div class="cp-group">
+                        <label for="cp-email">Email</label>
+                        <input type="email" id="cp-email" readonly>
+                    </div>
+
+                    <div class="cp-group">
+                        <label for="cp-subject">Subject</label>
+                        <select id="cp-subject" required>
+                            <option value="">Select a subject</option>
+                            <option value="Dashboard issue">Dashboard issue</option>
+                            <option value="Report concern">Problem with a citizen report</option>
+                            <option value="Account help">Account help</option>
+                            <option value="Feedback">Feedback</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="cp-group">
+                        <label for="cp-message">Message</label>
+                        <textarea id="cp-message" rows="5" placeholder="How can we help?" required></textarea>
+                    </div>
+
+                    <button type="submit" class="cp-submit">Send Message</button>
+                    <p class="cp-success" id="cp-success" hidden></p>
+                </form>
+
+                <div class="cp-sent-list" id="cp-sent-list"></div>
+            </section>
+
+        </div>
+
+    </main>
+
+    <script src="constructor-nav.js"></script>
+    <script src="constructor-contact.js"></script>
+
+</body>
+</html>

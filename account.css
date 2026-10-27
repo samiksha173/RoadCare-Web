@@ -1,0 +1,126 @@
+/* account.css - for profile.html and settings.html only */
+
+/* ---------- PROFILE HERO ---------- */
+.profile-hero {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  background: linear-gradient(135deg, rgba(76,175,80,0.35), rgba(20,40,25,0.55));
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 16px;
+  padding: 30px 34px;
+  margin-bottom: 24px;
+}
+
+.profile-hero-avatar {
+  position: relative;
+  flex-shrink: 0;
+  width: 96px;
+  height: 96px;
+}
+
+.profile-hero-avatar img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #4CAF50;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+
+.avatar-edit-btn {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #2e7d32;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid #0e1712;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.avatar-edit-btn:hover { background: #1b5e20; transform: scale(1.06); }
+
+.profile-hero-text h1 {
+  font-size: 26px;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.profile-hero-text p {
+  color: #d8ded9;
+  font-size: 15px;
+}
+
+/* ---------- FORM LAYOUT ---------- */
+.profile-card { max-width: 720px; }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+@media (max-width: 640px) {
+  .form-row { grid-template-columns: 1fr; }
+  .profile-hero { flex-direction: column; text-align: center; padding: 26px 20px; }
+}
+
+.profile-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.08); }
+
+/* ---------- MESSAGES ---------- */
+.card .form-msg {
+  font-size: 14px;
+  min-height: 20px;
+  margin-bottom: 12px;
+}
+.form-msg.ok  { color: #52e37e; }
+.form-msg.err { color: #ff8a80; }
+
+/* ---------- SETTINGS TOGGLES ---------- */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+}
+
+.toggle-row strong {
+  display: block;
+  font-size: 18px;
+}
+
+.toggle-row small {
+  display: block;
+  font-size: 14px;
+  color: #dddddd;
+}
+
+.toggle-row input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  accent-color: #4CAF50;
+}
+
+.toggle-row + .form-msg {
+  margin-top: 16px;
+}

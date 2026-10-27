@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="reports.css">
+    <link rel="stylesheet" href="nav-avatar.css">
+    <title>Report - RoadCare</title>
+</head>
+<body>
+    <header class="header-container">
+        <nav class="navbar">
+            <div class="logo">Road<span class="highlight">Care</span></div>
+            <ul class="nav-links nav-card">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="report.html" class="active">Report</a></li>
+                <li><a href="map.html">Map</a></li>
+                <li><a href="Login.html">Login</a></li>
+            </ul>
+
+            <div class="nav-user-actions">
+                <div class="notification-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <span class="notification-badge"></span>
+                </div>
+
+                <!-- Profile Avatar + Dropdown : inline style guarantees it is visible
+                     even if nav-avatar.css hasn't loaded -->
+                <div class="user-menu" id="userMenu" style="position:relative; display:inline-block;">
+                  <div class="nav-avatar" id="avatarBtn" role="button" tabindex="0"
+                       aria-haspopup="true" aria-expanded="false" aria-controls="avatarDropdown"
+                       style="width:38px; height:38px; border-radius:50%; overflow:hidden; cursor:pointer; border:2px solid #4CAF50; background:#555; display:flex; align-items:center; justify-content:center;">
+                    <img src="man.png" alt="User Avatar" id="navAvatarImg" style="width:100%; height:100%; object-fit:cover;">
+                  </div>
+
+                  <div class="avatar-dropdown" id="avatarDropdown" role="menu" hidden
+                       style="position:absolute; top:calc(100% + 10px); right:0; min-width:220px; background:#fff; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,.3); padding:8px; z-index:1000;">
+                    <div class="dropdown-header" style="padding:8px 10px 10px; border-bottom:1px solid #eee; margin-bottom:6px;">
+                      <strong id="ddName" style="display:block; font-size:14px; color:#222;">User</strong>
+                      <small id="ddEmail" style="color:#777;"></small>
+                    </div>
+
+                    <a href="profile.html" role="menuitem" style="display:block; padding:10px; color:#333; text-decoration:none; border-radius:8px; font-size:14px;">👤 Profile</a>
+                    <a href="settings.html" role="menuitem" style="display:block; padding:10px; color:#333; text-decoration:none; border-radius:8px; font-size:14px;">⚙️ Settings</a>
+                    <hr style="border:0; border-top:1px solid #eee; margin:6px 0;">
+                    <button type="button" id="signOutBtn" role="menuitem" class="danger"
+                            style="display:block; width:100%; padding:10px; border:0; background:none; text-align:left; font-size:14px; color:#d93025; cursor:pointer; border-radius:8px;">🚪 Sign out</button>
+                  </div>
+                </div>
+                <!-- end Profile Avatar + Dropdown -->
+
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <h1 class="about-heading"><em>Report a Road Issue</em></h1>
+        <p class="lede">Spot a pothole, broken signal, or damaged road? Let us know and we'll route it to the right authority.</p>
+
+        <div class="report-grid">
+
+            <!-- Report Form -->
+            <section class="card">
+                <h3>Issue Details</h3>
+                <form class="contact-form">
+
+                    <div class="form-group">
+                        <label for="issue-type">Issue Type</label>
+                        <select id="issue-type" name="issue-type" required>
+                            <option value="">Select an issue type</option>
+                            <option value="pothole">Pothole</option>
+                            <option value="broken-signal">Broken Traffic Signal</option>
+                            <option value="damaged-signage">Damaged Signage</option>
+                            <option value="waterlogging">Waterlogging</option>
+                            <option value="broken-footpath">Broken Footpath</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" rows="4" placeholder="Describe the issue — size, exact spot, how long it's been there..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <div class="location-row">
+                            <input type="text" id="location" name="location" placeholder="Street, landmark, or area">
+                            <button type="button" class="btn btn-secondary btn-location">📍 Use My Location</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="photo">Photo</label>
+                        <input type="file" id="photo" name="photo" accept="image/*" capture="environment">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Severity</label>
+                        <div class="severity-options">
+                            <label class="severity-choice">
+                                <input type="radio" name="severity" value="low" checked>
+                                <span class="severity-tag severity-low">Low</span>
+                            </label>
+                            <label class="severity-choice">
+                                <input type="radio" name="severity" value="medium">
+                                <span class="severity-tag severity-medium">Medium</span>
+                            </label>
+                            <label class="severity-choice">
+                                <input type="radio" name="severity" value="high">
+                                <span class="severity-tag severity-high">High</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit Report</button>
+                </form>
+            </section>
+
+            <!-- Reporting Tips -->
+            <section class="card">
+                <h3>Reporting Tips</h3>
+                <ul class="feature-list">
+                    <li><strong>Be specific:</strong> Mention nearby landmarks so authorities can find the exact spot.</li>
+                    <li><strong>Add a photo:</strong> Reports with photos get resolved faster.</li>
+                    <li><strong>Check the map first:</strong> Someone may have already reported the same issue nearby.</li>
+                    <li><strong>Rate severity honestly:</strong> High-severity reports are prioritized for safety-critical hazards.</li>
+                </ul>
+                <p class="contact-note">Your report helps build a safer road network for everyone in your community.</p>
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="foot-grid">
+            <div>
+                <div class="foot-brand">Road<span>Care</span></div>
+                <p style="margin-top:12px;">A community-driven platform for reporting and tracking road hazards, one street at a time.</p>
+            </div>
+            <div>
+                <h4>Navigate</h4>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="report.html">Report</a>
+                <a href="map.html">Map</a>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <a href="contact.html">Contact Us</a>
+                <a href="#">FAQs</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div>
+                <h4>Connect</h4>
+                <a href="#">Twitter / X</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+        <div class="foot-bottom">© 2026 RoadCare Platform by Samiksha. All rights reserved.</div>
+    </footer>
+
+    <script src="sync.js"></script> <!-- NEW: keep this first -->
+    <script src="reports.js"></script>
+    <script src="nav-avatar.js"></script>
+    <script src="citizen-messages.js"></script> <!-- NEW -->
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="nav-avatar.css">
+    <title>Contact - RoadCare</title>
+</head>
+<body>
+    <header class="header-container">
+        <nav class="navbar">
+            <div class="logo">Road<span class="highlight">Care</span></div>
+            <ul class="nav-links nav-card">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="report.html">Report</a></li>
+                <li><a href="map.html">Map</a></li>
+                <li><a href="Login.html">Login</a></li>
+            </ul>
+
+            <div class="nav-user-actions">
+                <div class="notification-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <span class="notification-badge"></span>
+                </div>
+
+                <!-- Profile Avatar + Dropdown : inline style guarantees it is visible
+                     even if nav-avatar.css hasn't loaded -->
+                <div class="user-menu" id="userMenu" style="position:relative; display:inline-block;">
+                  <div class="nav-avatar" id="avatarBtn" role="button" tabindex="0"
+                       aria-haspopup="true" aria-expanded="false" aria-controls="avatarDropdown"
+                       style="width:38px; height:38px; border-radius:50%; overflow:hidden; cursor:pointer; border:2px solid #4CAF50; background:#555; display:flex; align-items:center; justify-content:center;">
+                    <img src="man.png" alt="User Avatar" id="navAvatarImg" style="width:100%; height:100%; object-fit:cover;">
+                  </div>
+
+                  <div class="avatar-dropdown" id="avatarDropdown" role="menu" hidden
+                       style="position:absolute; top:calc(100% + 10px); right:0; min-width:220px; background:#fff; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,.3); padding:8px; z-index:1000;">
+                    <div class="dropdown-header" style="padding:8px 10px 10px; border-bottom:1px solid #eee; margin-bottom:6px;">
+                      <strong id="ddName" style="display:block; font-size:14px; color:#222;">User</strong>
+                      <small id="ddEmail" style="color:#777;"></small>
+                    </div>
+
+                    <a href="profile.html" role="menuitem" style="display:block; padding:10px; color:#333; text-decoration:none; border-radius:8px; font-size:14px;">👤 Profile</a>
+                    <a href="settings.html" role="menuitem" style="display:block; padding:10px; color:#333; text-decoration:none; border-radius:8px; font-size:14px;">⚙️ Settings</a>
+                    <hr style="border:0; border-top:1px solid #eee; margin:6px 0;">
+                    <button type="button" id="signOutBtn" role="menuitem" class="danger"
+                            style="display:block; width:100%; padding:10px; border:0; background:none; text-align:left; font-size:14px; color:#d93025; cursor:pointer; border-radius:8px;">🚪 Sign out</button>
+                  </div>
+                </div>
+                <!-- end Profile Avatar + Dropdown -->
+
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <h1 class="about-heading"><em>Contact Us</em></h1>
+        <p class="lede">Have a question, a bug to report, or a partnership idea? We'd love to hear from you.</p>
+
+        <div class="contact-grid">
+
+            <!-- Contact Info Card -->
+            <section class="card">
+                <h3>Get in Touch</h3>
+
+                <div class="info-item">
+                    <span class="info-icon">👤</span>
+                    <div>
+                        <span class="info-label">Developer</span>
+                        <p>Tarte Samiksha Sominath</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-icon">✉️</span>
+                    <div>
+                        <span class="info-label">Email</span>
+                        <p>tartesamiksha@gmail.com</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-icon">📞</span>
+                    <div>
+                        <span class="info-label">Phone</span>
+                        <p>+91 09563 23010</p>
+                    </div>
+                </div>
+
+                <p class="contact-note">If you run into any issues using RoadCare, or just want to say hello — reach out any time.</p>
+            </section>
+
+            <!-- Message Form Card -->
+            <section class="card">
+                <h3>Send a Message</h3>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="4" placeholder="How can we help?" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </section>
+
+        </div>
+
+    </main>
+
+   <!-- FOOTER -->
+  <footer>
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Road<span>Care</span></div>
+        <p style="margin-top:12px;">A community-driven platform for reporting and tracking road hazards, one street at a time.</p>
+      </div>
+      <div>
+        <h4>Navigate</h4>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Report</a>
+        <a href="#">Map</a>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <a href="#">Contact Us</a>
+        <a href="#">FAQs</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <a href="#">Twitter / X</a>
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 RoadCare Platform by Samiksha. All rights reserved.</div>
+  </footer>
+ 
+</div>
+<script src="contact.js"></script>
+<script src="nav-avatar.js"></script>
+</body>
+</html>

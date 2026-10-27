@@ -1,0 +1,203 @@
+/* =========================================
+   HOME PAGE - LIVE MAP TEASER
+   (only affects the map teaser section)
+   ========================================= */
+
+/* Whole card is clickable */
+.map-teaser {
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.map-teaser:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
+}
+
+
+/* Map area */
+.map-teaser .map-visual {
+    position: relative;
+    min-height: 320px;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+#home-googleMap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    z-index: 0;
+}
+
+/* Transparent layer so a click on the map opens map.html */
+.map-click-layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
+    cursor: pointer;
+}
+
+
+/* "Click to open" hint */
+.map-hint {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffffff;
+    background: rgba(27, 94, 32, 0.92);
+    pointer-events: none;
+    transition: transform 0.2s ease;
+}
+
+.map-teaser:hover .map-hint {
+    transform: scale(1.06);
+}
+
+
+/* What the map is showing */
+.map-caption {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    z-index: 10;
+    max-width: 80%;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #222222;
+    background: rgba(255, 255, 255, 0.94);
+    pointer-events: none;
+}
+
+
+/* Live counters */
+.map-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 14px 0;
+}
+
+.map-stat {
+    min-width: 88px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    text-align: center;
+    background: rgba(76, 175, 80, 0.14);
+    border: 1px solid rgba(76, 175, 80, 0.4);
+}
+
+.map-stat span {
+    display: block;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.map-stat small {
+    font-size: 12px;
+    opacity: 0.85;
+}
+
+
+/* Quick service buttons */
+.map-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 12px;
+}
+
+.map-chip {
+    padding: 7px 12px;
+    border: 1px solid rgba(76, 175, 80, 0.55);
+    border-radius: 20px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: inherit;
+    background: rgba(76, 175, 80, 0.12);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.map-chip:hover,
+.map-chip.active {
+    color: #ffffff;
+    background: #2e7d32;
+    border-color: #2e7d32;
+}
+
+.map-chip:hover {
+    transform: translateY(-1px);
+}
+
+
+/* Near me button */
+.map-near-btn {
+    display: inline-block;
+    margin: 0 0 8px;
+    padding: 9px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    color: #ffffff;
+    background: #2e7d32;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.map-near-btn:hover {
+    background: #1b5e20;
+    transform: translateY(-1px);
+}
+
+.map-near-btn:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.map-near-result {
+    min-height: 18px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.map-empty-note {
+    margin: 0 0 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.map-empty-note[hidden] {
+    display: none;
+}
+
+.map-empty-note a {
+    text-decoration: underline;
+}
+
+
+/* Small screens */
+@media (max-width: 700px) {
+
+    .map-teaser .map-visual {
+        min-height: 270px;
+    }
+}

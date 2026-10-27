@@ -1,0 +1,137 @@
+/* =========================================
+   CONSTRUCTOR AUTH THEME - Baby Sky Blue
+   Only linked from constructor-login.html and
+   constructor-register.html, so this never touches
+   the citizen login/register pages.
+
+   Uses !important in a few spots since auth.css's
+   own specificity is unknown from here - keeps the
+   override reliable without having to edit auth.css.
+   ========================================= */
+
+:root {
+    --ca-blue: #29B6F6;
+    --ca-blue-dark: #0288D1;
+    --ca-blue-pale: #E1F5FE;
+    --ca-blue-bg: #F0F9FF;
+}
+
+body.auth-body {
+    position: relative;
+    background: var(--ca-blue-bg) !important;
+    overflow-x: hidden;
+}
+
+/* Blurred construction-site photo, sitting behind everything */
+body.auth-body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url('constructor-bg.png') center/cover no-repeat;
+    filter: blur(4px);
+    transform: scale(1.03); /* hides the blur's soft edge */
+    z-index: -2;
+}
+
+/* Light sky-blue tint over the photo so form text and the card stay
+   clearly readable against it */
+body.auth-body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(224, 247, 255, 0.62);
+    z-index: -1;
+}
+
+.auth-card {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(2px);
+}
+
+.auth-card {
+    border-top: 5px solid var(--ca-blue) !important;
+    box-shadow: 0 14px 40px rgba(41, 182, 246, 0.18) !important;
+}
+
+.auth-title {
+    color: var(--ca-blue-dark) !important;
+}
+
+.input-icon {
+    color: var(--ca-blue) !important;
+}
+
+.input-group {
+    border-color: #d6eefb !important;
+    background: #fbfeff !important;
+}
+
+.input-group:focus-within {
+    border-color: var(--ca-blue) !important;
+    box-shadow: 0 0 0 3px rgba(41, 182, 246, 0.18) !important;
+}
+
+.auth-btn {
+    background: linear-gradient(135deg, var(--ca-blue), var(--ca-blue-dark)) !important;
+    border: none !important;
+    box-shadow: 0 8px 20px rgba(41, 182, 246, 0.35) !important;
+}
+
+.auth-btn:hover {
+    filter: brightness(1.05);
+}
+
+.auth-btn:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.create-btn,
+.login-btn {
+    color: var(--ca-blue-dark) !important;
+    border-color: var(--ca-blue) !important;
+}
+
+.create-btn:hover,
+.login-btn:hover {
+    background: var(--ca-blue-pale) !important;
+}
+
+.forgot-link,
+.auth-switch a {
+    color: var(--ca-blue-dark) !important;
+}
+
+.remember-me input[type="checkbox"] {
+    accent-color: var(--ca-blue);
+}
+
+/* =========================================
+   LOTTIE ANIMATION (top of the card)
+   ========================================= */
+
+.auth-lottie {
+    width: 130px;
+    height: 130px;
+    margin: -4px auto 2px;
+    display: block;
+}
+
+/* smaller on the long registration form */
+.auth-lottie-sm {
+    width: 90px;
+    height: 90px;
+}
+
+.auth-lottie svg {
+    display: block;
+}
+
+/* respect users who turn animations off in their system settings */
+@media (prefers-reduced-motion: reduce) {
+    .auth-lottie {
+        display: none;
+    }
+}

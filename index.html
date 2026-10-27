@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="reports.css">
+    <link rel="stylesheet" href="nav-avatar.css">
+
+    <!-- NEW: live map teaser styles -->
+    <link rel="stylesheet" href="home-map.css">
+
+    <title>RoadCare-Home</title>
+</head>
+<body>
+    <header class="header-container">
+        <nav class="navbar">
+            <div class="logo">Road<span class="highlight">Care</span></div>
+            <ul class="nav-links nav-card">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="report.html">Report</a></li>
+                <li><a href="map.html">Map</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+
+            <div class="nav-user-actions">
+            <!-- Notification Icon -->
+            <div class="notification-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                <span class="notification-badge"></span>
+            </div>
+
+            <!-- Profile Avatar + Dropdown : inline style guarantees it is visible
+                 even if nav-avatar.css hasn't loaded -->
+            <div class="user-menu" id="userMenu" style="position:relative; display:inline-block;">
+              <div class="nav-avatar" id="avatarBtn" role="button" tabindex="0"
+                   aria-haspopup="true" aria-expanded="false" aria-controls="avatarDropdown"
+                   style="width:38px; height:38px; border-radius:50%; overflow:hidden; cursor:pointer; border:2px solid #4CAF50; background:#555; display:flex; align-items:center; justify-content:center;">
+                <img src="man.png" alt="User Avatar" id="navAvatarImg" style="width:100%; height:100%; object-fit:cover;">
+              </div>
+
+              <div class="avatar-dropdown" id="avatarDropdown" role="menu" hidden
+                   style="position:absolute; top:calc(100% + 10px); right:0; min-width:220px; background:#fff; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,.3); padding:8px; z-index:1000;">
+                <div class="dropdown-header" style="padding:8px 10px 10px; border-bottom:1px solid #eee; margin-bottom:6px;">
+                  <strong id="ddName" style="display:block; font-size:14px; color:#222;">User</strong>
+                  <small id="ddEmail" style="color:#777;"></small>
+                </div>
+
+                <a href="profile.html" role="menuitem" style="display:block; padding:10px; color:#333; text-decoration:none; border-radius:8px; font-size:14px;">👤 Profile</a>
+                <a href="settings.html" role="menuitem" style="display:block; padding:10px; color:#333; text-decoration:none; border-radius:8px; font-size:14px;">⚙️ Settings</a>
+                <hr style="border:0; border-top:1px solid #eee; margin:6px 0;">
+                <button type="button" id="signOutBtn" role="menuitem" class="danger"
+                        style="display:block; width:100%; padding:10px; border:0; background:none; text-align:left; font-size:14px; color:#d93025; cursor:pointer; border-radius:8px;">🚪 Sign out</button>
+              </div>
+            </div>
+            <!-- end Profile Avatar + Dropdown -->
+
+        </div>
+
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Big Hero Image -->
+        <figure class="hero-image">
+            <img src="image 2.png" alt="MAKE ROADS SAFER, TOGETHER!">
+        </figure>
+
+  <!-- Intro Box -->
+        <section class="card intro-card">
+            <p>
+                Report potholes and road issues to make roads safer for everyone. 
+                Join our community of road safety advocates and help us create a better driving experience for all.
+            </p>
+        </section>
+
+
+
+
+<div class="wrap">
+ 
+  <!-- STATS -->
+  <section>
+    <h2 class="eyebrow">Our Impact So Far</h2>
+    <p class="lede">Real reports from real streets — here's what the RoadCare community has achieved together.</p>
+    <div class="stats">
+      <div class="stat-card"><div class="stat-num">2,540+</div><div class="stat-label">Issues Reported</div></div>
+      <div class="stat-card"><div class="stat-num">1,890</div><div class="stat-label">Issues Resolved</div></div>
+      <div class="stat-card"><div class="stat-num">160+</div><div class="stat-label">Cities Covered</div></div>
+      <div class="stat-card"><div class="stat-num">6,200+</div><div class="stat-label">Active Members</div></div>
+    </div>
+  </section>
+
+
+
+
+        <!-- GET INVOLVED SECTION (Split into 2 Different Containers) -->
+        <h2 class="section-title">Get Involved</h2>
+        
+        <div class="split-container">
+            <!-- Get Involved Container 1: Why Get Involved -->
+            <section class="card">
+                <h3>Why Join the Movement</h3>
+                <ol class="info-list">
+                    <li>Join our community of road safety advocates and help us create a better driving experience for all.</li>
+                    <li>Together, we can create safer and better roads by reporting potholes, cracks, and footpaths.</li>
+                    <li>Make your neighborhood safer by reporting road damage before it causes serious accidents.</li>
+                </ol>
+            </section>
+
+            <!-- Get Involved Container 2: How to Take Action -->
+            <section class="card">
+                <h3>How You Can Help</h3>
+                <ol class="info-list" start="4">
+                    <li>Report potholes, damaged roads, and other hazards in your area to help authorities take action.</li>
+                    <li>Take a photo, share the location, and help make your streets safer for everyone.</li>
+                    <li>Turn road problems into solutions. Report issues in your area and track them until resolved.</li>
+                </ol>
+            </section>
+        </div>
+
+        <!-- Action Links Box -->
+        <section class="card action-card">
+            <h3>Quick Actions</h3>
+            <div class="action-buttons">
+                <a href="report.html" class="btn btn-primary">Report Road Problems</a>
+                <a href="map.html" class="btn btn-secondary">View Reported Problems</a>
+            </div>
+        </section>
+
+        <!-- What You Can Do Container -->
+        <section class="card">
+            <h3>What You Can Do on RoadCare</h3>
+            <ul class="feature-list">
+                <li><strong>Report issues:</strong> Share photos and GPS locations.</li>
+                <li><strong>Track status:</strong> Watch real-time repair updates.</li>
+                <li><strong>Map explore:</strong> View reported hazards near you.</li>
+            </ul>
+        
+        </section>
+
+        <!-- Reports Near You (added) -->
+        <section class="card">
+            <h3>Reports Near You</h3>
+            <p id="rc-nearby-status">Loading nearby reports...</p>
+            <ul id="rc-nearby-list" class="rc-report-list"></ul>
+        </section>
+
+
+
+
+ <!-- HOW IT WORKS -->
+  <section>
+    <h2 class="eyebrow">How It Works</h2>
+    <p class="lede">From spotting a problem to seeing it fixed — three simple steps.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h3>Snap & Report</h3>
+        <p>Take a photo of the pothole or hazard, pin the exact location, and submit it in under a minute.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h3>Track Progress</h3>
+        <p>Your report is routed to the right local authority. Follow its status from submitted to in‑progress.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h3>See It Resolved</h3>
+        <p>Get notified when the issue is fixed, and see your contribution reflected on the community map.</p>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+  <!-- LIVE MAP TEASER (updated: same Google map as map.html, click opens map.html) -->
+  <section>
+    <div class="map-teaser" id="map-teaser">
+      <div class="map-copy">
+        <h3>See What's Happening Near You</h3>
+        <p>Explore a live map of reported potholes, road damage, and repair status across your city. Zoom in on your neighborhood and see what's already being tracked before you file a new report.</p>
+
+        <!-- NEW: live counters -->
+        <div class="map-stats">
+          <div class="map-stat"><span id="mt-total">0</span><small>Reported</small></div>
+          <div class="map-stat"><span id="mt-high">0</span><small>High priority</small></div>
+          <div class="map-stat"><span id="mt-near">--</span><small>Within 5 km</small></div>
+        </div>
+
+        <!-- NEW: quick service search (same as the Map page) -->
+        <div class="map-chips">
+          <button type="button" class="map-chip" data-service="hospital">🏥 Hospital</button>
+          <button type="button" class="map-chip" data-service="police station">🚔 Police</button>
+          <button type="button" class="map-chip" data-service="car repair shop">🔧 Mechanic</button>
+          <button type="button" class="map-chip" data-service="petrol pump">⛽ Fuel</button>
+          <button type="button" class="map-chip" data-service="towing service">🚗 Towing</button>
+        </div>
+
+        <!-- NEW: find issues near me -->
+        <button type="button" class="map-near-btn" id="mt-near-btn">📍 Find issues near me</button>
+        <p class="map-near-result" id="mt-near-result" aria-live="polite"></p>
+        <p class="map-empty-note" id="mt-empty" hidden>No reports yet. <a href="report.html">Be the first to report an issue</a></p>
+
+        <a href="map.html">Open Live Map →</a>
+      </div>
+      <div class="map-visual">
+
+        <!-- Same Google map as map.html -->
+        <iframe
+            id="home-googleMap"
+            title="RoadCare live map"
+            src="https://www.google.com/maps?q=19.876118020949388,75.33674705282539&z=14&output=embed"
+            loading="lazy"
+            tabindex="-1"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+
+        <!-- Clicking the map opens map.html -->
+        <div class="map-click-layer"></div>
+
+        <div class="map-hint">🗺️ Click to open the full map</div>
+        <div class="map-caption" id="mt-caption">📍 Default location</div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </main>
+
+   
+    <!-- FOOTER -->
+  <footer>
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Road<span>Care</span></div>
+        <p style="margin-top:12px;">A community-driven platform for reporting and tracking road hazards, one street at a time.</p>
+      </div>
+      <div>
+        <h4>Navigate</h4>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Report</a>
+        <a href="#">Map</a>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <a href="#">Contact Us</a>
+        <a href="#">FAQs</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <a href="#">Twitter / X</a>
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 RoadCare Platform by Samiksha. All rights reserved.</div>
+  </footer>
+ 
+</div>
+
+<script src="reports.js"></script>
+
+<!-- NEW: live map teaser script -->
+<script src="home-map.js"></script>
+<script src="nav-avatar.js"></script>
+</body>
+</html>

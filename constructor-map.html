@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="constructor-dashboard.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="constructor-pages.css">
+
+    <title>Map - RoadCare Constructor</title>
+</head>
+<body class="cd-body">
+
+    <header class="cd-header">
+        <div class="cd-logo">Road<span class="highlight">Care</span> <span class="cd-tag">Constructor</span></div>
+
+        <ul class="cd-nav-links">
+            <li><a href="constructor-dashboard.html">Dashboard</a></li>
+            <li><a href="constructor-map.html" class="active">Map</a></li>
+            <li><a href="constructor-contact.html">Contact</a></li>
+        </ul>
+
+        <div class="cd-header-actions">
+
+            <div class="cd-notification-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                <span class="cd-notification-badge"></span>
+            </div>
+
+            <div class="cd-user-menu" id="cdUserMenu">
+                <div class="cd-avatar" id="cdAvatarBtn" role="button" tabindex="0"
+                     aria-haspopup="true" aria-expanded="false" aria-controls="cdAvatarDropdown">
+                    <span id="cdAvatarInitial">C</span>
+                </div>
+
+                <div class="cd-avatar-dropdown" id="cdAvatarDropdown" role="menu" hidden>
+                    <div class="cd-dropdown-header">
+                        <strong id="cdDdName">Constructor</strong>
+                        <small id="cdDdEmail"></small>
+                    </div>
+
+                    <a href="profile.html" role="menuitem">👤 Profile</a>
+                    <a href="settings.html" role="menuitem">⚙️ Settings</a>
+                    <hr>
+                    <button type="button" id="cd-logout-btn" role="menuitem" class="cd-danger">🚪 Sign out</button>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="cd-main">
+
+        <div class="cd-hero">
+            <h1 class="cd-title">Reports Map</h1>
+            <p class="cd-subtitle">Every citizen-reported issue plotted on the map. Click a pin or a list item to see details.</p>
+        </div>
+
+        <div class="cp-map-layout">
+
+            <!-- LIST -->
+            <aside class="cp-sidebar">
+                <h3>Reported Issues</h3>
+                <div class="cp-filter">
+                    <label for="cp-status-filter">Status</label>
+                    <select id="cp-status-filter">
+                        <option value="all">All</option>
+                        <option value="pending">Pending</option>
+                        <option value="progress">In Progress</option>
+                        <option value="resolved">Resolved</option>
+                    </select>
+                    <span id="cp-count" style="font-size:13px;color:#666;"></span>
+                </div>
+                <div id="cp-list"></div>
+            </aside>
+
+            <!-- MAP -->
+            <div class="cp-map-wrap">
+                <div id="cp-map"></div>
+                <div class="cp-legend">
+                    <span><span class="cp-dot" style="background:#4CAF50"></span>Low severity</span>
+                    <span><span class="cp-dot" style="background:#FB8C00"></span>Medium severity</span>
+                    <span><span class="cp-dot" style="background:#E53935"></span>High severity</span>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="sync.js"></script> <!-- NEW -->
+    <script src="constructor-nav.js"></script>
+    <script src="constructor-map.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+/* =========================================================
+   RoadCare - constructor-pages.css
+   Extra styles for constructor-map.html and constructor-contact.html.
+   Loaded AFTER style.css and constructor-dashboard.css, so the
+   header look comes from constructor-dashboard.css.
+   ========================================================= */
+
+:root {
+    --cp-blue: #29B6F6;
+    --cp-blue-dark: #0288D1;
+    --cp-blue-pale: #E1F5FE;
+}
+
+/* ---------- MAP PAGE ---------- */
+.cp-map-layout {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.cp-sidebar {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .08);
+    padding: 14px;
+    height: 600px;
+    overflow-y: auto;
+}
+
+.cp-sidebar h3 { margin: 0 0 10px; }
+
+.cp-filter { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
+.cp-filter select { padding: 6px 8px; border-radius: 6px; border: 1px solid #ccc; }
+
+.cp-item {
+    border: 1px solid #e3f2fb;
+    border-left: 5px solid var(--cp-blue);
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background: #fbfeff;
+}
+.cp-item:hover { background: var(--cp-blue-pale); }
+.cp-item h4 { margin: 0 0 4px; font-size: 15px; }
+.cp-item small { color: #666; display: block; }
+.cp-item .cp-nocoords { color: #c0392b; font-style: italic; }
+
+.cp-map-wrap { position: relative; }
+#cp-map {
+    height: 600px;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .08);
+    z-index: 0;
+}
+
+.cp-legend {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    font-size: 13px; margin: 8px 0 0; color: #444;
+}
+.cp-dot {
+    display: inline-block; width: 12px; height: 12px;
+    border-radius: 50%; margin-right: 4px; vertical-align: middle;
+}
+
+/* custom map pin (Leaflet divIcon) */
+.cp-pin {
+    width: 22px; height: 22px; border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    border: 2px solid #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .4);
+}
+.cp-pin-low { background: #4CAF50; }
+.cp-pin-medium { background: #FB8C00; }
+.cp-pin-high { background: #E53935; }
+
+.cp-popup h4 { margin: 0 0 4px; }
+.cp-popup p { margin: 4px 0; font-size: 13px; }
+.cp-popup img { width: 100%; max-height: 110px; object-fit: cover; border-radius: 6px; margin: 4px 0; }
+.cp-popup a { color: var(--cp-blue-dark); font-weight: 600; text-decoration: none; }
+
+.cp-badge {
+    display: inline-block; font-size: 11px; font-weight: 600;
+    color: #fff; padding: 2px 8px; border-radius: 20px;
+}
+.cp-badge-pending { background: #FB8C00; }
+.cp-badge-progress { background: var(--cp-blue-dark); }
+.cp-badge-resolved { background: #4CAF50; }
+
+/* ---------- CONTACT PAGE ---------- */
+.cp-contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 20px;
+    margin-top: 16px;
+}
+
+.cp-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .08);
+    padding: 20px;
+    border-top: 5px solid var(--cp-blue);
+}
+.cp-card h3 { margin-top: 0; color: var(--cp-blue-dark); }
+
+.cp-info-row { display: flex; gap: 12px; margin-bottom: 16px; align-items: flex-start; }
+.cp-info-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    background: var(--cp-blue-pale); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
+}
+.cp-info-row strong { display: block; font-size: 14px; }
+.cp-info-row span { font-size: 14px; color: #555; }
+
+.cp-form .cp-group { margin-bottom: 14px; }
+.cp-form label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+.cp-form input,
+.cp-form select,
+.cp-form textarea {
+    width: 100%; box-sizing: border-box;
+    padding: 10px; border: 1px solid #d6eefb; border-radius: 8px;
+    font-family: inherit; font-size: 14px; background: #fbfeff;
+}
+.cp-form input:focus,
+.cp-form select:focus,
+.cp-form textarea:focus {
+    outline: none; border-color: var(--cp-blue);
+    box-shadow: 0 0 0 3px rgba(41, 182, 246, .18);
+}
+.cp-form input[readonly] { background: #f1f5f8; color: #555; }
+
+.cp-submit {
+    background: linear-gradient(135deg, var(--cp-blue), var(--cp-blue-dark));
+    color: #fff; border: 0; padding: 11px 22px; border-radius: 8px;
+    font-weight: 600; cursor: pointer;
+}
+.cp-submit:hover { filter: brightness(1.05); }
+
+.cp-success { margin-top: 12px; color: #1a7f37; font-weight: 600; }
+
+.cp-sent-list { margin-top: 18px; font-size: 13px; }
+.cp-sent-list div {
+    background: var(--cp-blue-pale); border-radius: 8px;
+    padding: 8px 12px; margin-top: 6px;
+}
+.cp-sent-list small { color: #666; display: block; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+    .cp-map-layout,
+    .cp-contact-grid { grid-template-columns: 1fr; }
+    .cp-sidebar { height: auto; max-height: 300px; }
+    #cp-map { height: 420px; }
+}

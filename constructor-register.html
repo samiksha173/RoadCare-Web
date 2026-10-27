@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+    <link rel="stylesheet" href="constructor-auth.css">
+
+    <title>Constructor Registration - RoadCare</title>
+</head>
+
+<body class="auth-body">
+
+    <div class="auth-card">
+
+        <!-- LOTTIE ANIMATION -->
+        <div id="lottie-box" class="auth-lottie auth-lottie-sm" aria-hidden="true"></div>
+
+        <h1 class="auth-title">Constructor Registration</h1>
+
+        <p class="auth-subtitle">
+            Create an account to view and manage road reports. You'll need the
+            access code given to you by your organization.
+        </p>
+
+        <!-- CONSTRUCTOR REGISTER FORM -->
+        <form class="auth-form" id="constructorRegisterForm">
+
+            <!-- FULL NAME -->
+            <div class="input-label">Full Name</div>
+            <div class="input-group">
+                <span class="input-icon">👤</span>
+                <input type="text" id="con-reg-name" placeholder="Enter your full name" required>
+            </div>
+
+            <!-- COMPANY / DEPARTMENT -->
+            <div class="input-label">Company / Department</div>
+            <div class="input-group">
+                <span class="input-icon">🏢</span>
+                <input type="text" id="con-reg-company" placeholder="e.g. PMC Roads Department" required>
+            </div>
+
+            <!-- PHONE -->
+            <div class="input-label">Phone Number</div>
+            <div class="input-group">
+                <span class="input-icon">📱</span>
+                <input type="tel" id="con-reg-phone" placeholder="Enter your phone number" required>
+            </div>
+
+            <!-- EMAIL -->
+            <div class="input-label">Email Address</div>
+            <div class="input-group">
+                <span class="input-icon">✉️</span>
+                <input type="email" id="con-reg-email" placeholder="example@email.com" required>
+            </div>
+
+            <!-- ACCESS CODE -->
+            <div class="input-label">Access Code</div>
+            <div class="input-group">
+                <span class="input-icon">🔑</span>
+                <input type="text" id="con-reg-code" placeholder="Enter the authorization code" required>
+            </div>
+
+            <!-- PASSWORD -->
+            <div class="input-label">Password</div>
+            <div class="input-group">
+                <span class="input-icon">🔒</span>
+                <input type="password" id="con-reg-password" placeholder="Enter your password" required>
+                <button type="button" class="toggle-eye" onclick="togglePassword('con-reg-password', this)">👁️</button>
+            </div>
+
+            <!-- CONFIRM PASSWORD -->
+            <div class="input-label">Confirm Password</div>
+            <div class="input-group">
+                <span class="input-icon">🔒</span>
+                <input type="password" id="con-reg-confirm-password" placeholder="Re-enter your password" required>
+                <button type="button" class="toggle-eye" onclick="togglePassword('con-reg-confirm-password', this)">👁️</button>
+            </div>
+
+            <!-- CREATE ACCOUNT BUTTON -->
+            <button type="submit" class="auth-btn">
+                🚀 Create Constructor Account
+            </button>
+
+        </form>
+
+        <div class="login-area">
+            <span>Already registered?</span>
+            <button type="button" class="login-btn" onclick="window.location.href='constructor-login.html'">
+                Login <span class="login-arrow">→</span>
+            </button>
+        </div>
+
+        <p class="auth-footer">
+            &copy; 2026 RoadCare Platform by Samiksha.
+            All Rights Reserved.
+        </p>
+
+    </div>
+
+    <!-- Lottie library, then our animation, then the page logic -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <script src="constructor-lottie.js"></script>
+    <script src="constructor-auth.js"></script>
+
+</body>
+</html>

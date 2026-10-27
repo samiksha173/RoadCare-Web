@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+    <link rel="stylesheet" href="role-select.css">
+
+    <title>Welcome - RoadCare</title>
+</head>
+
+<body class="auth-body">
+
+    <div class="auth-card role-card">
+
+        <h1 class="auth-title">Welcome to RoadCare</h1>
+
+        <p class="auth-subtitle">
+            Tell us who you are so we can take you to the right place.
+        </p>
+
+        <div class="role-options">
+
+            <button
+                type="button"
+                class="role-option"
+                onclick="window.location.href='login.html'"
+            >
+                <span class="role-icon">🚗</span>
+                <span class="role-name">I'm a Citizen</span>
+                <span class="role-desc">Report road issues and track their progress.</span>
+            </button>
+
+            <button
+                type="button"
+                class="role-option"
+                onclick="window.location.href='constructor-login.html'"
+            >
+                <span class="role-icon">🛠️</span>
+                <span class="role-name">I'm a Constructor</span>
+                <span class="role-desc">View and update reports sent in by citizens.</span>
+            </button>
+
+        </div>
+
+        <p class="auth-footer">
+            &copy; 2026 RoadCare Platform by Samiksha.
+            All Rights Reserved.
+        </p>
+
+    </div>
+
+</body>
+</html>

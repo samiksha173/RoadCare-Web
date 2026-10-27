@@ -1,0 +1,54 @@
+/* =========================================
+   ROLE SELECT PAGE (welcome.html)
+   Extends auth.css - does not override it
+   ========================================= */
+
+.role-card {
+    max-width: 420px;
+}
+
+.role-options {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.role-option {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    width: 100%;
+    padding: 18px 20px;
+    border: 2px solid #e2e2e2;
+    border-radius: 14px;
+    background: #fff;
+    cursor: pointer;
+    transition: border-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+.role-option:hover,
+.role-option:focus-visible {
+    border-color: #4CAF50;
+    box-shadow: 0 6px 18px rgba(76, 175, 80, 0.18);
+    transform: translateY(-2px);
+    outline: none;
+}
+
+.role-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.role-name {
+    font-size: 17px;
+    font-weight: 700;
+    color: #222;
+}
+
+.role-desc {
+    font-size: 13px;
+    color: #777;
+    margin-top: 4px;
+}

@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Map - RoadCare</title>
+
+
+    <link rel="stylesheet"
+          href="style.css">
+
+    <link rel="stylesheet"
+          href="nav-avatar.css">
+
+</head>
+
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<header class="header-container">
+
+    <nav class="navbar">
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            Road<span class="highlight">Care</span>
+
+        </div>
+
+
+
+        <!-- NAVIGATION -->
+
+        <ul class="nav-links nav-card">
+
+
+            <li>
+
+                <a href="index.html">
+
+                    Home
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="about.html">
+
+                    About
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="contact.html">
+
+                    Contact
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="report.html">
+
+                    Report
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="map.html"
+                   class="active">
+
+                    Map
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="Login.html">
+
+                    Login
+
+                </a>
+
+            </li>
+
+
+        </ul>
+
+
+
+        <!-- NOTIFICATION + PROFILE -->
+
+        <div class="nav-user-actions">
+
+
+            <!-- Notification -->
+
+            <div class="notification-icon"
+                 title="Notifications">
+
+
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round">
+
+                    <path
+                        d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9">
+                    </path>
+
+                    <path
+                        d="M13.73 21a2 2 0 0 1-3.46 0">
+                    </path>
+
+                </svg>
+
+
+                <span class="notification-badge"></span>
+
+            </div>
+
+
+
+            <!-- Profile Avatar + Dropdown : inline style guarantees it is visible
+                 even if nav-avatar.css hasn't loaded -->
+
+            <div class="user-menu" id="userMenu" style="position:relative; display:inline-block;">
+
+              <div class="nav-avatar" id="avatarBtn" role="button" tabindex="0"
+                   aria-haspopup="true" aria-expanded="false" aria-controls="avatarDropdown"
+                   style="width:38px; height:38px; border-radius:50%; overflow:hidden; cursor:pointer; border:2px solid #4CAF50; background:#555; display:flex; align-items:center; justify-content:center;">
+                <img src="man.png" alt="User Avatar" id="navAvatarImg" style="width:100%; height:100%; object-fit:cover;">
+              </div>
+
+              <div class="avatar-dropdown" id="avatarDropdown" role="menu" hidden
+                   style="position:absolute; top:calc(100% + 10px); right:0; min-width:220px; background:#fff; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,.3); padding:8px; z-index:1000;">
+                <div class="dropdown-header" style="padding:8px 10px 10px; border-bottom:1px solid #eee; margin-bottom:6px;">
+                  <strong id="ddName" style="display:block; font-size:14px; color:#222;">User</strong>
+                  <small id="ddEmail" style="color:#777;"></small>
+                </div>
+
+                <a href="profile.html" role="menuitem" style="display:block; padding:10px; color:#333; text-decoration:none; border-radius:8px; font-size:14px;">👤 Profile</a>
+                <a href="settings.html" role="menuitem" style="display:block; padding:10px; color:#333; text-decoration:none; border-radius:8px; font-size:14px;">⚙️ Settings</a>
+                <hr style="border:0; border-top:1px solid #eee; margin:6px 0;">
+                <button type="button" id="signOutBtn" role="menuitem" class="danger"
+                        style="display:block; width:100%; padding:10px; border:0; background:none; text-align:left; font-size:14px; color:#d93025; cursor:pointer; border-radius:8px;">🚪 Sign out</button>
+              </div>
+
+            </div>
+            <!-- end Profile Avatar + Dropdown -->
+
+
+        </div>
+
+
+    </nav>
+
+</header>
+
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+<main>
+
+
+    <div class="map-page-container">
+
+
+        <!-- BACK -->
+
+        <div class="back-btn-wrapper">
+
+            <button
+                class="back-btn"
+                onclick="goBack()"
+                title="Back">
+
+                ←
+
+            </button>
+
+        </div>
+
+
+
+        <!-- HEADING -->
+
+        <div class="page-heading">
+
+            <h1>
+                Find Nearby Services
+            </h1>
+
+
+            <p>
+
+                Find hospitals, police stations,
+                mechanics, fuel stations and towing
+                services near your current location.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             SEARCH
+        ====================================================== -->
+
+        <div class="search-container">
+
+
+            <input
+                id="searchBox"
+                type="text"
+                placeholder="Search location, hospital, police station...">
+
+
+            <button
+                class="search-btn"
+                onclick="searchLocation()">
+
+                🔍 Search
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =====================================================
+             GOOGLE MAP
+        ====================================================== -->
+
+        <div id="map">
+
+
+            <iframe
+                id="googleMap"
+
+                src="https://www.google.com/maps?q=19.876118020949388,75.33674705282539&z=14&output=embed"
+
+                allowfullscreen
+
+                loading="lazy"
+
+                referrerpolicy="no-referrer-when-downgrade">
+
+            </iframe>
+
+
+
+            <!-- EMERGENCY -->
+
+            <button
+                class="emergency-btn"
+                onclick="emergencySearch()"
+                title="Emergency">
+
+                🚨
+
+            </button>
+
+
+
+            <!-- CURRENT LOCATION -->
+
+            <button
+                class="location-btn"
+                onclick="getMyLocation()"
+                title="My Current Location">
+
+                📍
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =====================================================
+             LOCATION INFORMATION
+        ====================================================== -->
+
+        <div class="location-box">
+
+
+            <div class="location-left">
+
+                <strong>
+
+                    📍 Your Current Location
+
+                </strong>
+
+
+                <div id="locationStatus">
+
+                    Getting your current GPS location...
+
+                </div>
+
+            </div>
+
+
+
+            <div id="coordinates">
+
+                Latitude: --<br>
+
+                Longitude: --
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =====================================================
+             SERVICES
+        ====================================================== -->
+
+        <h2 class="services-heading">
+
+            Nearby RoadCare Services
+
+        </h2>
+
+
+        <p class="services-text">
+
+            Select a service to search near your current GPS location.
+
+        </p>
+
+
+
+        <div class="bottom-menu">
+
+
+            <!-- HOSPITAL -->
+
+            <button
+                class="map-btn"
+                onclick="searchNearby('hospital')">
+
+
+                <span class="service-icon">
+
+                    🏥
+
+                </span>
+
+
+                <span class="service-name">
+
+                    Hospital
+
+                </span>
+
+
+                <span class="service-description">
+
+                    Nearby hospitals
+
+                </span>
+
+
+            </button>
+
+
+
+            <!-- POLICE -->
+
+            <button
+                class="map-btn"
+                onclick="searchNearby('police station')">
+
+
+                <span class="service-icon">
+
+                    🚔
+
+                </span>
+
+
+                <span class="service-name">
+
+                    Police
+
+                </span>
+
+
+                <span class="service-description">
+
+                    Nearby police stations
+
+                </span>
+
+
+            </button>
+
+
+
+            <!-- MECHANIC -->
+
+            <button
+                class="map-btn"
+                onclick="searchNearby('car repair shop')">
+
+
+                <span class="service-icon">
+
+                    🔧
+
+                </span>
+
+
+                <span class="service-name">
+
+                    Mechanic
+
+                </span>
+
+
+                <span class="service-description">
+
+                    Nearby car repair
+
+                </span>
+
+
+            </button>
+
+
+
+            <!-- FUEL -->
+
+            <button
+                class="map-btn"
+                onclick="searchNearby('petrol pump')">
+
+
+                <span class="service-icon">
+
+                    ⛽
+
+                </span>
+
+
+                <span class="service-name">
+
+                    Fuel
+
+                </span>
+
+
+                <span class="service-description">
+
+                    Nearby fuel stations
+
+                </span>
+
+
+            </button>
+
+
+
+            <!-- TOWING -->
+
+            <button
+                class="map-btn"
+                onclick="searchNearby('towing service')">
+
+
+                <span class="service-icon">
+
+                    🚗
+
+                </span>
+
+
+                <span class="service-name">
+
+                    Towing
+
+                </span>
+
+
+                <span class="service-description">
+
+                    Nearby towing services
+
+                </span>
+
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =====================================================
+             DIRECTIONS
+        ====================================================== -->
+
+        <div class="directions-section">
+
+
+            <button
+                class="directions-btn"
+                onclick="openDirections()">
+
+                🧭 Get Directions From My Location
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+
+    <div class="foot-grid">
+
+
+        <!-- ROADCARE -->
+
+        <div>
+
+
+            <div class="foot-brand">
+
+                Road<span>Care</span>
+
+            </div>
+
+
+            <p>
+
+                A community-driven platform for reporting
+                and tracking road hazards, one street at a time.
+
+            </p>
+
+
+        </div>
+
+
+
+        <!-- NAVIGATE -->
+
+        <div>
+
+
+            <h4>
+
+                Navigate
+
+            </h4>
+
+
+            <a href="index.html">
+
+                Home
+
+            </a>
+
+
+            <a href="about.html">
+
+                About
+
+            </a>
+
+
+            <a href="report.html">
+
+                Report
+
+            </a>
+
+
+            <a href="map.html">
+
+                Map
+
+            </a>
+
+
+        </div>
+
+
+
+        <!-- SUPPORT -->
+
+        <div>
+
+
+            <h4>
+
+                Support
+
+            </h4>
+
+
+            <a href="contact.html">
+
+                Contact Us
+
+            </a>
+
+
+            <a href="#">
+
+                FAQs
+
+            </a>
+
+
+            <a href="#">
+
+                Privacy Policy
+
+            </a>
+
+
+            <a href="#">
+
+                Terms of Service
+
+            </a>
+
+
+        </div>
+
+
+
+        <!-- CONNECT -->
+
+        <div>
+
+
+            <h4>
+
+                Connect
+
+            </h4>
+
+
+            <a href="#">
+
+                Twitter / X
+
+            </a>
+
+
+            <a href="#">
+
+                Instagram
+
+            </a>
+
+
+            <a href="#">
+
+                LinkedIn
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- COPYRIGHT -->
+
+    <div class="foot-bottom">
+
+        © 2026 RoadCare Platform by Samiksha.
+        All rights reserved.
+
+    </div>
+
+
+</footer>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+/* =========================================================
+   DEFAULT LOCATION
+========================================================= */
+
+const DEFAULT_LOCATION = {
+
+    lat: 19.876118020949388,
+
+    lng: 75.33674705282539
+
+};
+
+
+
+/* =========================================================
+   USER LOCATION
+========================================================= */
+
+let userLocation = null;
+
+
+
+/* =========================================================
+   MAP IFRAME
+========================================================= */
+
+const googleMap =
+    document.getElementById("googleMap");
+
+
+
+/* =========================================================
+   GET CURRENT LOCATION WHEN PAGE LOADS
+========================================================= */
+
+window.addEventListener(
+    "load",
+    function() {
+
+        getMyLocation();
+
+    }
+);
+
+
+
+/* =========================================================
+   GET CURRENT GPS LOCATION
+========================================================= */
+
+function getMyLocation() {
+
+
+    const status =
+        document.getElementById(
+            "locationStatus"
+        );
+
+
+    status.innerText =
+        "Getting your current GPS location...";
+
+
+    if (!navigator.geolocation) {
+
+
+        status.innerText =
+            "GPS is not supported by this browser.";
+
+
+        setDefaultLocation();
+
+
+        return;
+
+    }
+
+
+
+    navigator.geolocation.getCurrentPosition(
+
+
+        function(position) {
+
+
+            const latitude =
+                position.coords.latitude;
+
+
+            const longitude =
+                position.coords.longitude;
+
+
+
+            userLocation = {
+
+                lat: latitude,
+
+                lng: longitude
+
+            };
+
+
+
+            status.innerText =
+                "Current GPS location detected.";
+
+
+
+            document.getElementById(
+                "coordinates"
+            ).innerHTML =
+
+                "Latitude: <b>" +
+
+                latitude.toFixed(6) +
+
+                "</b><br>" +
+
+                "Longitude: <b>" +
+
+                longitude.toFixed(6) +
+
+                "</b>";
+
+
+
+            showLocationOnMap(
+
+                latitude,
+
+                longitude
+
+            );
+
+        },
+
+
+        function(error) {
+
+
+            console.log(
+                "GPS Error:",
+                error
+            );
+
+
+            status.innerText =
+                "GPS unavailable. Default location is being used.";
+
+
+            setDefaultLocation();
+
+        },
+
+
+        {
+
+            enableHighAccuracy: true,
+
+            timeout: 15000,
+
+            maximumAge: 0
+
+        }
+
+    );
+
+}
+
+
+
+/* =========================================================
+   DEFAULT LOCATION
+========================================================= */
+
+function setDefaultLocation() {
+
+
+    userLocation = {
+
+        lat: DEFAULT_LOCATION.lat,
+
+        lng: DEFAULT_LOCATION.lng
+
+    };
+
+
+    document.getElementById(
+        "coordinates"
+    ).innerHTML =
+
+        "Latitude: <b>" +
+
+        DEFAULT_LOCATION.lat.toFixed(6) +
+
+        "</b><br>" +
+
+        "Longitude: <b>" +
+
+        DEFAULT_LOCATION.lng.toFixed(6) +
+
+        "</b>";
+
+
+    showLocationOnMap(
+
+        DEFAULT_LOCATION.lat,
+
+        DEFAULT_LOCATION.lng
+
+    );
+
+}
+
+
+
+/* =========================================================
+   SHOW CURRENT LOCATION ON GOOGLE MAP
+========================================================= */
+
+function showLocationOnMap(
+
+    latitude,
+
+    longitude
+
+) {
+
+
+    const mapURL =
+
+        "https://www.google.com/maps" +
+
+        "?q=" +
+
+        latitude +
+
+        "," +
+
+        longitude +
+
+        "&z=15" +
+
+        "&output=embed";
+
+
+    googleMap.src = mapURL;
+
+}
+
+
+
+/* =========================================================
+   SEARCH NEARBY SERVICES
+========================================================= */
+
+function searchNearby(type) {
+
+
+    /*
+       If GPS location is not available,
+       request it first.
+    */
+
+    if (!userLocation) {
+
+
+        if (!navigator.geolocation) {
+
+
+            alert(
+                "Your browser does not support GPS."
+            );
+
+
+            return;
+
+        }
+
+
+
+        navigator.geolocation.getCurrentPosition(
+
+
+            function(position) {
+
+
+                userLocation = {
+
+                    lat:
+                        position.coords.latitude,
+
+                    lng:
+                        position.coords.longitude
+
+                };
+
+
+                updateLocationText();
+
+
+                searchNearby(type);
+
+            },
+
+
+            function() {
+
+
+                alert(
+
+                    "Please allow location access " +
+
+                    "to find nearby " +
+
+                    type +
+
+                    "."
+
+                );
+
+            },
+
+
+            {
+
+                enableHighAccuracy: true,
+
+                timeout: 15000,
+
+                maximumAge: 0
+
+            }
+
+        );
+
+
+        return;
+
+    }
+
+
+
+    const latitude =
+        userLocation.lat;
+
+
+    const longitude =
+        userLocation.lng;
+
+
+
+    /*
+       Google Maps search query.
+
+       Example:
+
+       hospital near 19.876,75.336
+    */
+
+    const query =
+
+        type +
+
+        " near " +
+
+        latitude +
+
+        "," +
+
+        longitude;
+
+
+
+    const mapURL =
+
+        "https://www.google.com/maps" +
+
+        "?q=" +
+
+        encodeURIComponent(query) +
+
+        "&ll=" +
+
+        latitude +
+
+        "," +
+
+        longitude +
+
+        "&z=14" +
+
+        "&output=embed";
+
+
+
+    googleMap.src =
+        mapURL;
+
+
+
+    document
+        .getElementById("map")
+        .scrollIntoView({
+
+            behavior: "smooth",
+
+            block: "start"
+
+        });
+
+}
+
+
+
+/* =========================================================
+   UPDATE LOCATION TEXT
+========================================================= */
+
+function updateLocationText() {
+
+
+    if (!userLocation) {
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "locationStatus"
+    ).innerText =
+        "Current GPS location detected.";
+
+
+    document.getElementById(
+        "coordinates"
+    ).innerHTML =
+
+        "Latitude: <b>" +
+
+        userLocation.lat.toFixed(6) +
+
+        "</b><br>" +
+
+        "Longitude: <b>" +
+
+        userLocation.lng.toFixed(6) +
+
+        "</b>";
+
+}
+
+
+
+/* =========================================================
+   SEARCH BUTTON
+========================================================= */
+
+function searchLocation() {
+
+
+    const searchText =
+
+        document
+            .getElementById("searchBox")
+            .value
+            .trim();
+
+
+
+    if (searchText === "") {
+
+
+        alert(
+            "Please enter a location to search."
+        );
+
+
+        return;
+
+    }
+
+
+
+    let query;
+
+
+
+    /*
+       If GPS exists, search near the user.
+    */
+
+    if (userLocation) {
+
+
+        query =
+
+            searchText +
+
+            " near " +
+
+            userLocation.lat +
+
+            "," +
+
+            userLocation.lng;
+
+
+    } else {
+
+
+        query = searchText;
+
+    }
+
+
+
+    const mapURL =
+
+        "https://www.google.com/maps" +
+
+        "?q=" +
+
+        encodeURIComponent(query) +
+
+        "&z=14" +
+
+        "&output=embed";
+
+
+
+    googleMap.src =
+        mapURL;
+
+
+
+    document
+        .getElementById("map")
+        .scrollIntoView({
+
+            behavior: "smooth",
+
+            block: "start"
+
+        });
+
+}
+
+
+
+/* =========================================================
+   ENTER KEY SEARCH
+========================================================= */
+
+document
+    .getElementById("searchBox")
+    .addEventListener(
+
+        "keydown",
+
+        function(event) {
+
+
+            if (event.key === "Enter") {
+
+
+                searchLocation();
+
+
+            }
+
+        }
+
+    );
+
+
+
+/* =========================================================
+   DIRECTIONS
+========================================================= */
+
+function openDirections() {
+
+
+    if (!userLocation) {
+
+
+        alert(
+            "Getting your current location..."
+        );
+
+
+        getMyLocation();
+
+
+        return;
+
+    }
+
+
+
+    const latitude =
+        userLocation.lat;
+
+
+    const longitude =
+        userLocation.lng;
+
+
+
+    /*
+       This opens Google Maps directions
+       using current GPS location.
+    */
+
+    const directionsURL =
+
+        "https://www.google.com/maps/dir/?api=1" +
+
+        "&origin=" +
+
+        latitude +
+
+        "," +
+
+        longitude;
+
+
+
+    window.open(
+
+        directionsURL,
+
+        "_blank"
+
+    );
+
+}
+
+
+
+/* =========================================================
+   EMERGENCY
+========================================================= */
+
+function emergencySearch() {
+
+
+    if (!userLocation) {
+
+
+        alert(
+            "Getting your current location..."
+        );
+
+
+        getMyLocation();
+
+
+        return;
+
+    }
+
+
+
+    searchNearby("hospital");
+
+}
+
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+function goBack() {
+
+    window.history.back();
+
+}
+
+
+</script>
+
+
+<!-- avatar dropdown open/close + optional login state -->
+<script src="nav-avatar.js"></script>
+
+
+</body>
+
+</html>
