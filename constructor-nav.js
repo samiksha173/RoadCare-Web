@@ -38,7 +38,10 @@
 
     const logout = document.getElementById("cd-logout-btn");
     if (logout) {
-      logout.addEventListener("click", () => {
+      logout.addEventListener("click", async () => {
+        logout.disabled = true;
+        // end the server session too, otherwise the login page would sign you straight back in
+        try { await fetch("/api/constructors/logout", { method: "POST", credentials: "same-origin" }); } catch (e) { }
         ["roadcareConstructorLoggedIn", "roadcareConstructorName", "roadcareConstructorEmail",
          "roadcareConstructorCompany", "roadcareConstructorPhone"].forEach((k) => localStorage.removeItem(k));
         window.location.href = "constructor-login.html";

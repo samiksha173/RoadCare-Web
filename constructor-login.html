@@ -37,6 +37,7 @@
                 <input
                     type="email"
                     id="con-login-email"
+                    autocomplete="username"
                     placeholder="example@email.com"
                     required
                 >
@@ -52,6 +53,7 @@
                 <input
                     type="password"
                     id="con-login-password"
+                    autocomplete="current-password"
                     placeholder="Enter your password"
                     required
                 >
@@ -63,6 +65,18 @@
                     👁️
                 </button>
             </div>
+
+            <!-- REMEMBER / FORGOT -->
+            <div class="auth-row">
+                <label class="remember-me">
+                    <input type="checkbox" id="con-remember" checked>
+                    Keep me signed in
+                </label>
+                <a href="#" class="forgot-link" id="con-forgot">Forgot password?</a>
+            </div>
+
+            <!-- MESSAGE (errors / success) -->
+            <div id="auth-msg" class="auth-msg" role="alert" aria-live="polite"></div>
 
             <!-- LOGIN BUTTON -->
             <button type="submit" class="auth-btn">
@@ -103,6 +117,7 @@
     <!-- Lottie library, then our animation, then the page logic -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <script src="constructor-lottie.js"></script>
+    <script src="auth-common.js"></script>
     <script src="constructor-auth.js"></script>
 
 </body>

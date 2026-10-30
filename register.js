@@ -1,343 +1,81 @@
 // =========================================
-// SHOW / HIDE PASSWORD
+// CITIZEN REGISTRATION
+// Saves the account on the server when it is running; otherwise in this
+// browser (see auth-common.js). togglePassword() lives in auth-common.js.
 // =========================================
 
-function togglePassword(inputId, btn) {
+const registerForm = document.getElementById("registerForm");
 
-    const input = document.getElementById(inputId);
+RC.bindRules("reg-password"); // live password checklist
 
-    if (input.type === "password") {
+registerForm.addEventListener("submit", async function (event) {
 
-        input.type = "text";
-        btn.textContent = "🙈";
+    event.preventDefault();
+    RC.showMsg("");
 
-    } else {
+    const name = document.getElementById("reg-name").value.trim().replace(/\s+/g, " ");
+    const phoneRaw = document.getElementById("reg-phone").value.trim();
+    const email = document.getElementById("reg-email").value.trim().toLowerCase();
+    const password = document.getElementById("reg-password").value;
+    const confirmPassword = document.getElementById("reg-confirm-password").value;
 
-        input.type = "password";
-        btn.textContent = "👁️";
 
+    // ---------- name ----------
+    if (name === "") return RC.fail("Please enter your full name.", "reg-name");
+    if (name.length < 3) return RC.fail("Name must contain at least 3 characters.", "reg-name");
+    if (!RC.validName(name)) {
+        return RC.fail("Name can contain only letters, spaces, dots, hyphens and apostrophes.", "reg-name");
     }
-}
 
-
-// =========================================
-// REGISTRATION FORM
-// =========================================
-
-document
-    .getElementById("registerForm")
-    .addEventListener("submit", function(event) {
-
-        event.preventDefault();
-
-
-        // =========================================
-        // GET INPUT VALUES
-        // =========================================
-
-        const name = document
-            .getElementById("reg-name")
-            .value
-            .trim();
-
-        const phone = document
-            .getElementById("reg-phone")
-            .value
-            .trim();
-
-        const email = document
-            .getElementById("reg-email")
-            .value
-            .trim();
-
-        const password = document
-            .getElementById("reg-password")
-            .value;
-
-        const confirmPassword = document
-            .getElementById("reg-confirm-password")
-            .value;
-
-
-        // =========================================
-        // NAME VALIDATION
-        // =========================================
-
-        if (name === "") {
-
-            alert("Please enter your full name.");
-
-            document
-                .getElementById("reg-name")
-                .focus();
-
-            return;
-        }
-
-
-        if (name.length < 3) {
-
-            alert("Name must contain at least 3 characters.");
-
-            document
-                .getElementById("reg-name")
-                .focus();
-
-            return;
-        }
-
-
-        // =========================================
-        // PHONE VALIDATION
-        // =========================================
-
-        if (phone === "") {
-
-            alert("Please enter your phone number.");
-
-            document
-                .getElementById("reg-phone")
-                .focus();
-
-            return;
-        }
-
-
-        // Remove spaces, +, -, brackets for checking
-        const cleanPhone =
-            phone.replace(/[\s\-()+]/g, "");
-
-
-        if (!/^\d{10}$/.test(cleanPhone)) {
-
-            alert("Please enter a valid 10-digit phone number.");
-
-            document
-                .getElementById("reg-phone")
-                .focus();
-
-            return;
-        }
-
-
-        // =========================================
-        // EMAIL VALIDATION
-        // =========================================
-
-        if (email === "") {
-
-            alert("Please enter your email address.");
-
-            document
-                .getElementById("reg-email")
-                .focus();
-
-            return;
-        }
-
-
-        const emailPattern =
-            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-
-        if (!emailPattern.test(email)) {
-
-            alert("Please enter a valid email address.");
-
-            document
-                .getElementById("reg-email")
-                .focus();
-
-            return;
-        }
-
-
-        // =========================================
-        // PASSWORD VALIDATION
-        // =========================================
-
-        if (password === "") {
-
-            alert("Please enter your password.");
-
-            document
-                .getElementById("reg-password")
-                .focus();
-
-            return;
-        }
-
-
-        // Minimum 8 characters
-        if (password.length < 8) {
-
-            alert(
-                "Password must be at least 8 characters long."
-            );
-
-            document
-                .getElementById("reg-password")
-                .focus();
-
-            return;
-        }
-
-
-        // At least one uppercase
-        if (!/[A-Z]/.test(password)) {
-
-            alert(
-                "Password must contain at least one uppercase letter."
-            );
-
-            document
-                .getElementById("reg-password")
-                .focus();
-
-            return;
-        }
-
-
-        // At least one lowercase
-        if (!/[a-z]/.test(password)) {
-
-            alert(
-                "Password must contain at least one lowercase letter."
-            );
-
-            document
-                .getElementById("reg-password")
-                .focus();
-
-            return;
-        }
-
-
-        // At least one number
-        if (!/[0-9]/.test(password)) {
-
-            alert(
-                "Password must contain at least one number."
-            );
-
-            document
-                .getElementById("reg-password")
-                .focus();
-
-            return;
-        }
-
-
-        // =========================================
-        // CONFIRM PASSWORD
-        // =========================================
-
-        if (confirmPassword === "") {
-
-            alert("Please confirm your password.");
-
-            document
-                .getElementById("reg-confirm-password")
-                .focus();
-
-            return;
-        }
-
-
-        if (password !== confirmPassword) {
-
-            alert(
-                "Password and Confirm Password do not match."
-            );
-
-            document
-                .getElementById("reg-confirm-password")
-                .focus();
-
-            return;
-        }
-
-
-        // =========================================
-        // CHECK IF EMAIL ALREADY EXISTS
-        // =========================================
-
-        const existingUser =
-            localStorage.getItem("roadcareUser");
-
-
-        if (existingUser) {
-
-            const user =
-                JSON.parse(existingUser);
-
-
-            if (
-                user.email.toLowerCase() ===
-                email.toLowerCase()
-            ) {
-
-                alert(
-                    "This email is already registered. Please login."
-                );
-
-                window.location.href = "login.html";
-
-                return;
-            }
-        }
-
-
-        // =========================================
-        // CREATE USER OBJECT
-        // =========================================
-
-        const user = {
-
-            name: name,
-
-            phone: cleanPhone,
-
-            email: email,
-
-            password: password
-
-        };
-
-
-        // =========================================
-        // SAVE USER
-        // =========================================
-
-        localStorage.setItem(
-            "roadcareUser",
-            JSON.stringify(user)
-        );
-
-
-        // =========================================
-        // LOGIN STATUS
-        // =========================================
-
-        localStorage.setItem(
-            "roadcareLoggedIn",
-            "false"
-        );
-
-
-        // =========================================
-        // SUCCESS
-        // =========================================
-
-        alert(
-            "Account created successfully! Please login."
-        );
-
-
-        // =========================================
-        // GO TO LOGIN PAGE
-        // =========================================
-
-        window.location.href = "login.html";
-
-    });
+    // ---------- phone ----------
+    if (phoneRaw === "") return RC.fail("Please enter your phone number.", "reg-phone");
+    const phone = RC.cleanPhone(phoneRaw);
+    if (!phone) return RC.fail("Please enter a valid 10-digit phone number.", "reg-phone");
+
+    // ---------- email ----------
+    if (email === "") return RC.fail("Please enter your email address.", "reg-email");
+    if (!RC.EMAIL_RE.test(email)) return RC.fail("Please enter a valid email address.", "reg-email");
+
+    // ---------- password ----------
+    if (password === "") return RC.fail("Please enter your password.", "reg-password");
+    const passwordError = RC.passwordError(password);
+    if (passwordError) return RC.fail(passwordError, "reg-password");
+
+    if (confirmPassword === "") return RC.fail("Please confirm your password.", "reg-confirm-password");
+    if (password !== confirmPassword) {
+        return RC.fail("Password and Confirm Password do not match.", "reg-confirm-password");
+    }
+
+
+    const submitBtn = registerForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+
+    const done = () => {
+        try { sessionStorage.setItem("roadcarePrefillEmail", email); } catch (e) { }
+        RC.showMsg("Account created successfully! Taking you to login...", "success");
+        setTimeout(function () { window.location.href = "login.html"; }, 1000);
+    };
+
+    const exists = () => {
+        try { sessionStorage.setItem("roadcarePrefillEmail", email); } catch (e) { }
+        RC.showMsg("This email is already registered. Taking you to login...", "info");
+        setTimeout(function () { window.location.href = "login.html"; }, 1200);
+    };
+
+
+    // ---------- 1) server ----------
+    const result = await RC.api("POST", "/api/register", { name, phone, email, password });
+
+    if (result) {
+        if (result.data.ok) return done();
+        if (result.data.error === "exists") return exists();
+        submitBtn.disabled = false;
+        return RC.fail(result.data.message || "Could not create the account. Please check your details and try again.");
+    }
+
+    // ---------- 2) no server: this browser ----------
+    const status = await RC.localRegister({ name, phone, email, password });
+    if (status === "exists") return exists();
+    done();
+
+});

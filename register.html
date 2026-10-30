@@ -46,6 +46,7 @@
                 <input
                     type="text"
                     id="reg-name"
+                    autocomplete="name"
                     placeholder="Enter your full name"
                     required
                 >
@@ -65,6 +66,7 @@
                 <input
                     type="tel"
                     id="reg-phone"
+                    autocomplete="tel"
                     placeholder="Enter your phone number"
                     required
                 >
@@ -84,6 +86,7 @@
                 <input
                     type="email"
                     id="reg-email"
+                    autocomplete="email"
                     placeholder="example@email.com"
                     required
                 >
@@ -103,6 +106,7 @@
                 <input
                     type="password"
                     id="reg-password"
+                    autocomplete="new-password"
                     placeholder="Enter your password"
                     required
                 >
@@ -130,6 +134,7 @@
                 <input
                     type="password"
                     id="reg-confirm-password"
+                    autocomplete="new-password"
                     placeholder="Re-enter your password"
                     required
                 >
@@ -144,6 +149,18 @@
 
             </div>
 
+
+            <!-- Live password rules -->
+            <ul class="rule-list" id="rule-list">
+                <li id="rule-length">At least 8 characters</li>
+                <li id="rule-upper">At least one uppercase letter</li>
+                <li id="rule-lower">At least one lowercase letter</li>
+                <li id="rule-number">At least one number</li>
+                <li id="rule-symbol">At least one special symbol</li>
+            </ul>
+
+            <!-- Message (errors / success) -->
+            <div id="auth-msg" class="auth-msg" role="alert" aria-live="polite"></div>
 
             <!-- Create Account Button -->
             <button
@@ -184,6 +201,7 @@
 
 
     <!-- Registration JavaScript -->
+    <script src="auth-common.js"></script>
     <script src="register.js"></script>
 
 </body>

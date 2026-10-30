@@ -40,6 +40,7 @@
                 <input
                     type="email"
                     id="login-email"
+                    autocomplete="username"
                     placeholder="example@email.com"
                     required
                 >
@@ -59,6 +60,7 @@
                 <input
                     type="password"
                     id="login-password"
+                    autocomplete="current-password"
                     placeholder="Enter your password"
                     required
                 >
@@ -78,7 +80,7 @@
 
                 <label class="remember-me">
 
-                    <input type="checkbox">
+                    <input type="checkbox" id="remember-me" checked>
 
                     Remember me
 
@@ -90,6 +92,9 @@
 
             </div>
 
+
+            <!-- MESSAGE (errors / success) -->
+            <div id="auth-msg" class="auth-msg" role="alert" aria-live="polite"></div>
 
             <!-- LOGIN BUTTON -->
             <button
@@ -137,6 +142,7 @@
 
 
     <!-- LOGIN JAVASCRIPT -->
+    <script src="auth-common.js"></script>
     <script src="login.js"></script>
 
 </body>

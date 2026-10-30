@@ -223,10 +223,14 @@
 
     filterEl.addEventListener("change", render);
 
-    document.getElementById("cd-logout-btn").addEventListener("click", function () {
+    document.getElementById("cd-logout-btn").addEventListener("click", async function () {
+        // end the server session too, otherwise the login page would sign you straight back in
+        try { await fetch("/api/constructors/logout", { method: "POST", credentials: "same-origin" }); } catch (e) { }
         localStorage.removeItem("roadcareConstructorLoggedIn");
         localStorage.removeItem("roadcareConstructorName");
         localStorage.removeItem("roadcareConstructorEmail");
+        localStorage.removeItem("roadcareConstructorCompany");
+        localStorage.removeItem("roadcareConstructorPhone");
         window.location.href = "constructor-login.html";
     });
 

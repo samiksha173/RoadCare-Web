@@ -1,382 +1,141 @@
 // =========================================
-// SHOW / HIDE PASSWORD
+// CITIZEN LOGIN
+// Uses server.js when it is running (secure session cookie, hashed
+// passwords). If the server isn't running, falls back to accounts stored
+// in this browser (see auth-common.js).
+//
+// togglePassword() now lives in auth-common.js.
 // =========================================
 
-function togglePassword(inputId, btn) {
+const loginForm = document.getElementById("loginForm");
+const emailInput = document.getElementById("login-email");
+const passwordInput = document.getElementById("login-password");
 
-    const input = document.getElementById(inputId);
 
-    if (input.type === "password") {
+// =========================================
+// ALREADY LOGGED IN? Go straight to the site
+// =========================================
 
-        input.type = "text";
-        btn.textContent = "🙈";
-
-    } else {
-
-        input.type = "password";
-        btn.textContent = "👁️";
-
+(async function () {
+    const here = await RC.api("GET", "/api/me");
+    if (here && here.data.ok) {
+        window.location.replace(RC.safeNext("index.html"));
+        return;
     }
-}
+    // Server running but not logged in: any old browser-side "logged in" marker is stale
+    if (here) {
+        localStorage.removeItem("roadcareLoggedIn");
+        sessionStorage.removeItem("roadcareLoggedIn");
+    } else if (localStorage.getItem("roadcareLoggedIn") === "true" ||
+               sessionStorage.getItem("roadcareLoggedIn") === "true") {
+        window.location.replace(RC.safeNext("index.html"));
+        return;
+    }
 
+    // Pre-fill the email after registering or resetting a password
+    let prefill = "";
+    try { prefill = sessionStorage.getItem("roadcarePrefillEmail") || ""; sessionStorage.removeItem("roadcarePrefillEmail"); } catch (e) { }
+    if (prefill) {
+        emailInput.value = prefill;
+        passwordInput.focus();
+    }
+})();
 
 
 // =========================================
-// LOGIN VALIDATION
+// LOGIN
+// Only checks that the fields are filled in and the email looks right.
+// (Password strength rules belong to registration / reset - checking them
+// here used to lock out people whose password was valid at sign-up.)
 // =========================================
 
-document.getElementById("loginForm").addEventListener("submit", function(event) {
+loginForm.addEventListener("submit", async function (event) {
 
     event.preventDefault();
+    RC.showMsg("");
 
+    const email = emailInput.value.trim().toLowerCase();
+    const password = passwordInput.value;
+    const remember = document.getElementById("remember-me").checked;
 
-    // =========================================
-    // GET INPUT VALUES
-    // =========================================
+    if (email === "") return RC.fail("Please enter your email address.", "login-email");
+    if (!RC.EMAIL_RE.test(email)) return RC.fail("Please enter a valid email address.", "login-email");
+    if (password === "") return RC.fail("Please enter your password.", "login-password");
 
-    const email = document
-        .getElementById("login-email")
-        .value
-        .trim();
+    const submitBtn = loginForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
 
-    const password = document
-        .getElementById("login-password")
-        .value;
+    let profile = null;
 
+    const result = await RC.api("POST", "/api/login", { email, password, remember });
 
-    // =========================================
-    // EMAIL VALIDATION
-    // =========================================
-
-    if (email === "") {
-
-        alert("Please enter your email address.");
-
-        document
-            .getElementById("login-email")
-            .focus();
-
-        return;
-    }
-
-
-    // Email must contain @ and .
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailPattern.test(email)) {
-
-        alert("Please enter a valid email address containing @ and a domain.");
-
-        document
-            .getElementById("login-email")
-            .focus();
-
-        return;
-    }
-
-
-    // =========================================
-    // PASSWORD EMPTY CHECK
-    // =========================================
-
-    if (password === "") {
-
-        alert("Please enter your password.");
-
-        document
-            .getElementById("login-password")
-            .focus();
-
-        return;
-    }
-
-
-    // =========================================
-    // PASSWORD LENGTH
-    // Minimum 8 characters
-    // =========================================
-
-    if (password.length < 8) {
-
-        alert("Password must contain at least 8 characters.");
-
-        document
-            .getElementById("login-password")
-            .focus();
-
-        return;
-    }
-
-
-    // =========================================
-    // PASSWORD MUST CONTAIN LETTER
-    // =========================================
-
-    const letter = /[A-Za-z]/;
-
-    if (!letter.test(password)) {
-
-        alert("Password must contain at least one letter.");
-
-        document
-            .getElementById("login-password")
-            .focus();
-
-        return;
-    }
-
-
-    // =========================================
-    // PASSWORD MUST CONTAIN NUMBER
-    // =========================================
-
-    const number = /[0-9]/;
-
-    if (!number.test(password)) {
-
-        alert("Password must contain at least one number.");
-
-        document
-            .getElementById("login-password")
-            .focus();
-
-        return;
-    }
-
-
-    // =========================================
-    // PASSWORD MUST CONTAIN SYMBOL
-    // =========================================
-
-    const symbol = /[!@#$%^&*(),.?":{}|<>_\-+=/\\[\]';`~]/;
-
-    if (!symbol.test(password)) {
-
-        alert("Password must contain at least one special symbol.");
-
-        document
-            .getElementById("login-password")
-            .focus();
-
-        return;
-    }
-
-
-    // =========================================
-    // GET REGISTERED USER
-    // =========================================
-
-    const savedUser = localStorage.getItem("roadcareUser");
-
-
-    if (!savedUser) {
-
-        alert(
-            "No account found. Please create an account first."
-        );
-
-        return;
-    }
-
-
-    // =========================================
-    // CONVERT SAVED DATA
-    // =========================================
-
-    const user = JSON.parse(savedUser);
-
-
-    // =========================================
-    // CHECK REGISTERED NAME
-    // =========================================
-
-    if (user.name) {
-
-        const namePattern = /^[A-Za-z ]+$/;
-
-        if (!namePattern.test(user.name)) {
-
-            alert(
-                "Invalid registered name. Name must contain letters only."
-            );
-
-            return;
+    if (result) {
+        // ---- server answered ----
+        if (result.status === 429) {
+            submitBtn.disabled = false;
+            return RC.fail(RC.lockedText(result.data));
         }
+        if (!result.data.ok) {
+            submitBtn.disabled = false;
+            if (result.data.error === "no-account") {
+                return RC.fail("No account found with this email. Please create an account first.", "login-email");
+            }
+            return RC.fail("Incorrect email or password. Please try again.", "login-password");
+        }
+        profile = result.data.profile;
+
+    } else {
+        // ---- no server: accounts saved in this browser ----
+        const local = await RC.localLogin(email, password);
+        if (!local.ok) {
+            submitBtn.disabled = false;
+            if (local.error === "no-account") {
+                return RC.fail("No account found with this email. Please create an account first.", "login-email");
+            }
+            return RC.fail("Incorrect email or password. Please try again.", "login-password");
+        }
+        profile = local.profile;
     }
 
+    RC.startCitizenSession(profile, remember);
 
-    // =========================================
-    // CHECK EMAIL AND PASSWORD
-    // =========================================
-
-    if (
-        email !== user.email ||
-        password !== user.password
-    ) {
-
-        alert(
-            "Incorrect email or password. Please try again."
-        );
-
-        return;
-    }
-
-
-    // =========================================
-    // LOGIN SUCCESS
-    // =========================================
-
-    localStorage.setItem(
-        "roadcareLoggedIn",
-        "true"
-    );
-
-
-    localStorage.setItem(
-        "roadcareUserName",
-        user.name
-    );
-
-
-    // =========================================
-    // SUCCESS MESSAGE
-    // =========================================
-
-    alert(
-        "Login successful! Welcome to RoadCare."
-    );
-
-
-    // =========================================
-    // GO TO HOME PAGE
-    // =========================================
-
-    window.location.href = "index.html";
+    RC.showMsg("Login successful! Welcome to RoadCare.", "success");
+    setTimeout(function () {
+        window.location.href = RC.safeNext("index.html");
+    }, 600);
 
 });
 
 
-
 // =========================================
-// FORGOT PASSWORD (NEW)
-// Sends a 6-digit code to the user's email
-// No key needed - uses FormSubmit (formsubmit.co)
-// First time only: click "Activate Form" in the email
+// FORGOT PASSWORD
+// Sends a 6-digit code to the user's email, then opens reset-password.html
 // =========================================
 
 async function forgotPassword(event) {
 
     event.preventDefault();
+    RC.showMsg("");
 
-    const email = document
-        .getElementById("login-email")
-        .value
-        .trim();
+    const email = emailInput.value.trim().toLowerCase();
 
-
-    // Email must be typed first
     if (email === "") {
-
-        alert("Please enter your email address first, then click 'Forgot password?'.");
-
-        document
-            .getElementById("login-email")
-            .focus();
-
-        return;
+        return RC.fail("Please enter your email address first, then click 'Forgot password?'.", "login-email");
+    }
+    if (!RC.EMAIL_RE.test(email)) {
+        return RC.fail("Please enter a valid email address.", "login-email");
     }
 
+    RC.showMsg("Sending the code...", "info");
 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const r = await RC.requestReset(email, "citizen");
 
-    if (!emailPattern.test(email)) {
+    if (!r.ok) return RC.fail(r.message);
 
-        alert("Please enter a valid email address.");
-
-        return;
+    if (r.noAccount) {
+        return RC.fail("No account found with this email. Please create an account first.", "login-email");
     }
 
-
-    // Check that the account exists
-    const savedUser = localStorage.getItem("roadcareUser");
-
-    if (!savedUser) {
-
-        alert("No account found. Please create an account first.");
-
-        return;
-    }
-
-    const user = JSON.parse(savedUser);
-
-    if (email !== user.email) {
-
-        alert("No account found with this email.");
-
-        return;
-    }
-
-
-    // Create a 6-digit code that is valid for 15 minutes
-    const code = String(
-        crypto.getRandomValues(new Uint32Array(1))[0] % 900000 + 100000
-    );
-
-    localStorage.setItem(
-        "roadcareResetCode",
-        JSON.stringify({
-            code: code,
-            email: email,
-            expires: Date.now() + 15 * 60 * 1000,
-            attempts: 0
-        })
-    );
-
-
-    // Send the email
-    try {
-
-        const response = await fetch(
-            "https://formsubmit.co/ajax/" + encodeURIComponent(email),
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                },
-                body: JSON.stringify({
-                    _subject: "RoadCare - Your password reset code",
-                    _template: "box",
-                    _captcha: "false",
-                    Name: user.name || "User",
-                    Message: "Your RoadCare password reset code is: " + code +
-                             "  (valid for 15 minutes)"
-                })
-            }
-        );
-
-        const result = await response.json();
-
-        if (response.ok && (result.success === true || result.success === "true")) {
-
-            alert("A 6-digit code has been sent to your email. Enter it on the next page.");
-
-            // Open the reset page (same browser, no link needed)
-            window.location.href = "reset-password.html";
-
-        } else {
-
-            localStorage.removeItem("roadcareResetCode");
-
-            alert("Could not send the email: " + (result.message || "Unknown error"));
-        }
-
-    } catch (error) {
-
-        console.error(error);
-
-        localStorage.removeItem("roadcareResetCode");
-
-        alert("Could not send the email. Check your internet connection.");
-    }
+    try { sessionStorage.setItem("roadcareResetEmail", email); } catch (e) { }
+    window.location.href = "reset-password.html?email=" + encodeURIComponent(email);
 }
